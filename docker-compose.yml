@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+
+  file_server:
+    image: "xdream76/simple-file-server"
+    container_name: "file_server"
+    restart: unless-stopped
+    ports:
+      - "8020:8001"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TZ: Asia/Hong_Kong
+      XD_API_KEY: d69f5cad-5452-400f-9bbe-49e0adffe711
+      BASE_URL: https://file.woonut.com
+      MONGO_URI: mongodb://xdream:sima5654@74.48.222.112:57017/
