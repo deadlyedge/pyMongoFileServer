@@ -3,6 +3,7 @@ import pendulum
 from fastapi import Depends, FastAPI, HTTPException, UploadFile, File, status
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
 from fastapi.security import OAuth2PasswordBearer
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pymongo import MongoClient
 from gridfs import GridFS
@@ -26,6 +27,14 @@ fs = GridFS(db)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def api_key_auth(api_key: str = Depends(oauth2_scheme)):
