@@ -37,7 +37,7 @@ export const upload_file = async (files: FileList) => {
 }
 
 export const delete_file = async (ids: string[]) => {
-  await fetcher.post("/delete/", { ids })
+  await fetcher.post("/delete/", { file_ids: ids })
   console.log("delete success")
   return true
 }

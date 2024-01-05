@@ -2,7 +2,7 @@ import { useState } from "react"
 import { FileCode2, FileText } from "lucide-react"
 
 import { FileInfoProps } from "@/types"
-import { formatBytes } from "@/lib/utils"
+import { cn, formatBytes } from "@/lib/utils"
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -16,7 +16,7 @@ export function Item({
   const [isCopied, setIsCopied] = useState(false)
 
   const image_base = process.env.BASE_URL
-  const image_path = `${image_base}/get/${params.id}`
+  const image_path = `${image_base}/get/${params.id}/`
   const days = Math.floor(params.delta_time / 86400)
   const file_size = formatBytes(params.size)
   const isImage = params.filename.match(/\.(jpg|jpeg|png|gif)$/i)
@@ -31,7 +31,11 @@ export function Item({
   }
 
   return (
-    <div className='flex flex-col rounded-lg bg-white shadow-md text-zinc-700 text-xs m-2 p-2 w-72'>
+    <div
+      className={cn(
+        "flex flex-col rounded-lg shadow-md text-zinc-700 text-xs m-2 p-2 w-72",
+        params.selected ? "bg-zinc-300/50" : "bg-white"
+      )}>
       {isImage && (
         <img
           src={image_path}

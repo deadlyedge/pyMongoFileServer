@@ -1,4 +1,5 @@
 import os
+from fastapi.staticfiles import StaticFiles
 import pendulum
 from fastapi import Depends, FastAPI, HTTPException, UploadFile, File, status
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
@@ -44,9 +45,19 @@ def api_key_auth(api_key: str = Depends(oauth2_scheme)):
         )
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+# @app.get("/")
+# async def root():
+#     return {"message": "Hello World"}
+app.mount(
+    "/web",
+    StaticFiles(directory="frontend/dist", html=True),
+    name="web",
+)
+app.mount(
+    "/assets",
+    StaticFiles(directory="frontend/dist/assets"),
+    name="assets",
+)
 
 
 @app.post("/upload/", dependencies=[Depends(api_key_auth)])
@@ -94,7 +105,7 @@ async def list_files():
             "filename": file.filename,
             "id": str(file._id),
             "size": file.length,
-            "delta_time": pendulum.instance(file.upload_date).diff().seconds,
+            "delta_time": pendulum.instance(file.upload_date).diff().in_seconds(),
         }
         for file in files
     ]

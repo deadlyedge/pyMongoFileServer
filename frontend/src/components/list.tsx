@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 import { Item } from "./item"
-import { get_list } from "@/lib/api"
+import { delete_file, get_list } from "@/lib/api"
 import { FileInfoProps } from "@/types"
 
 export function List() {
@@ -22,6 +22,9 @@ export function List() {
     )
   }
   // console.log(selected)
+  const handleDelete = () => {
+    delete_file(selected)
+  }
 
   useEffect(() => {
     getData()
@@ -32,12 +35,12 @@ export function List() {
       {fileList.map((file: FileInfoProps) => (
         <Item key={file.id} params={file} handleSelect={handleSelect} />
       ))}
-      {selected.length  && (
+      {selected.length > 0 && (
         <div className='fixed w-20 top-5 left-48 block z-40'>
           <button
             className='bg-red-400 p-3 shadow-md transition duration-500 hover:scale-125 hover:bg-red-600 hover:text-white focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5'
             type='button'
-            onClick={() => (true)}>
+            onClick={handleDelete}>
             Delete THEM!
           </button>
         </div>
