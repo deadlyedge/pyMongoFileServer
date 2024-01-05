@@ -1,13 +1,13 @@
 import { FileInfoProps } from "@/types"
 import axios from "axios"
 
-const API_KEY = process.env.XD_API_KEY
+const API_KEY = import.meta.env.VITE_XD_API_KEY
 
 if (!API_KEY) {
   throw new Error("XD_API_KEY is not defined")
 }
 
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 if (!BASE_URL) {
   throw new Error("BASE_URL is not defined")

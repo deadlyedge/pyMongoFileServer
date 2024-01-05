@@ -14,8 +14,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 API_KEYS = os.getenv("XD_API_KEY")
+
+# BASE_URL here is just for upload response, it could be ignored.
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
+
+# in production, don't need to set these two variables, just default.
+STATIC_DIR = os.getenv("STATIC_DIR", "static")
+ASSETS_DIR = os.getenv("ASSETS_DIR", "static/assets")
+
 if API_KEYS is None:
     raise ValueError("XD_API_KEY environment variable not set")
 
@@ -45,17 +52,20 @@ def api_key_auth(api_key: str = Depends(oauth2_scheme)):
         )
 
 
-# @app.get("/")
-# async def root():
-#     return {"message": "Hello World"}
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+
 app.mount(
     "/web",
-    StaticFiles(directory="frontend/dist", html=True),
+    StaticFiles(directory=STATIC_DIR, html=True),
     name="web",
 )
+
 app.mount(
     "/assets",
-    StaticFiles(directory="frontend/dist/assets"),
+    StaticFiles(directory=ASSETS_DIR),
     name="assets",
 )
 

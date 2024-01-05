@@ -15,7 +15,7 @@ export function Item({
 }) {
   const [isCopied, setIsCopied] = useState(false)
 
-  const image_base = process.env.BASE_URL
+  const image_base = import.meta.env.VITE_BASE_URL
   const image_path = `${image_base}/get/${params.id}/`
   const days = Math.floor(params.delta_time / 86400)
   const file_size = formatBytes(params.size)
