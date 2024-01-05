@@ -1,10 +1,15 @@
-import { upload_file } from "@/lib/api"
 import { FileDrop } from "react-file-drop"
+
+import { upload_file } from "@/lib/api"
+import { delay } from "@/lib/utils"
 
 export function Add() {
   const handleDropped = (droppedFiles: FileList) => {
     upload_file(droppedFiles)
+      .then(() => delay(2000))
+      .then(() => window.location.reload())
   }
+
   return (
     <div className='z-50 w-40 h-40 m-2 border-4 border-dashed bg-gray-100 rounded bg-opacity-50 cursor-pointer group hover:bg-opacity-90 hover:z-20 duration-200'>
       <FileDrop

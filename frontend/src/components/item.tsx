@@ -2,17 +2,14 @@ import { useState } from "react"
 import { FileCode2, FileText } from "lucide-react"
 
 import { FileInfoProps } from "@/types"
-import { cn, formatBytes } from "@/lib/utils"
+import { cn, formatBytes, delay } from "@/lib/utils"
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-export function Item({
-  params,
-  handleSelect,
-}: {
+type ItemProps = {
   params: FileInfoProps
   handleSelect: (id: string) => void
-}) {
+}
+
+export function Item({ params, handleSelect }: ItemProps) {
   const [isCopied, setIsCopied] = useState(false)
 
   const image_base = import.meta.env.VITE_BASE_URL
@@ -33,7 +30,7 @@ export function Item({
   return (
     <div
       className={cn(
-        "flex flex-col rounded-lg shadow-md text-zinc-700 text-xs m-2 p-2 w-72",
+        "flex flex-col rounded-lg shadow-md text-zinc-700 text-xs m-2 p-2 w-72 hover:scale-105 transition-transform",
         params.selected ? "bg-zinc-300/50" : "bg-white"
       )}>
       {isImage && (
@@ -53,11 +50,10 @@ export function Item({
       <p className='w-64 overflow-hidden text-ellipsis hover:overflow-visible'>
         url:
         <code
-          className={
-            isCopied
-              ? "bg-emerald-300 px-1 rounded"
-              : "bg-zinc-200 px-1 rounded"
-          }
+          className={cn(
+            "px-1 rounded",
+            isCopied ? "bg-emerald-300 " : "bg-zinc-200"
+          )}
           onClick={() => copyText(image_path)}>
           {image_path}
         </code>

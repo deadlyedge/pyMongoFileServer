@@ -6,10 +6,12 @@ import { FileInfoProps } from "@/types"
 
 export function List() {
   const [fileList, setFileList] = useState<FileInfoProps[]>([])
+
   const getData = async () => {
     const res = await get_list()
     setFileList(res)
   }
+
   const selected = fileList
     .filter((file) => file.selected)
     .map((file) => file.id)
@@ -21,9 +23,9 @@ export function List() {
       )
     )
   }
-  // console.log(selected)
+
   const handleDelete = () => {
-    delete_file(selected)
+    delete_file(selected).then(() => window.location.reload())
   }
 
   useEffect(() => {

@@ -9,6 +9,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // choose output dir for 'npm run build'
   build: {
     outDir: "../app/static",
     emptyOutDir: true,
