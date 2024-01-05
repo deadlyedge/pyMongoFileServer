@@ -2,7 +2,12 @@
 
 this project is sort of review, for my coding skills, just for fun.
 
-this repo require a working mongodb uri to run, just set it in enviroment.
+this repo require a working mongodb uri to run, set it in enviroment.
+
+I throught it may useful when someone have a vps and want to add a bit more
+workload to it, and may make some test work easier.
+
+I choose mongodb with gridFS support, because I love mongo, and I have had a mongodb running, and it looks less code to write.
 
 ## tech stacks
 
@@ -12,11 +17,15 @@ this repo require a working mongodb uri to run, just set it in enviroment.
  - fastapi
 
 ## enviroments
- - XD_API_KEY: <some key>
- - VITE_XD_API_KEY: <same key>
- - BASE_URL: <production url>
- - VITE_BASE_URL: <same url>
- - MONGO_URI: <working database>
+
+variable start with VITE_ is required by vitejs, it means from frontend for me,
+so just keep them same as for backend.
+
+ - XD_API_KEY: {some key}
+ - VITE_XD_API_KEY: {same key}
+ - BASE_URL: {production url} # not necessary
+ - VITE_BASE_URL: {same url}
+ - MONGO_URI: {working database}
 
 ## example docker compose file
 
@@ -47,6 +56,6 @@ services:
 
  - add download times count
  - add select filters
- - finish delete
+ - port to nextjs
 
 ## note
