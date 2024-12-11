@@ -1,3 +1,5 @@
+Deprecated and inherited by https://github.com/deadlyedge/pyBlobServer
+
 ## purpose
 
 this project is sort of review, for my coding skills, just for fun.
